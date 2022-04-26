@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01</groupId>
-	<artifactId>s05t01n01gognomsnom</artifactId>
+	<artifactId>S05T01N01GognomsNom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01</name>
 	<description>S05T01N01GognomsNom</description>
@@ -29,7 +29,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
