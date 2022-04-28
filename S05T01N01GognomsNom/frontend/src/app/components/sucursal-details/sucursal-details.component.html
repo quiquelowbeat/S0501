@@ -1,5 +1,5 @@
 <ng-template [ngIf]="viewMode" [ngIfElse]="editable">
-  <div *ngIf="currentSucursal.pk_SucursalID">
+  <div *ngIf="currentSucursal.pk_SucursalID; else fesClick">
     <h4>Sucursal</h4>
     <div>
         <label><strong>ID:</strong></label> {{ currentSucursal.pk_SucursalID }}
@@ -22,13 +22,16 @@
       Edita
     </a>
   </div>
-  <div *ngIf="!currentSucursal">
-    <br />
-    <p>Fes click a una sucursal...</p>
-  </div>
 </ng-template> 
+<ng-template #fesClick>
+  <div class = "fesClick">
+    <p>Fes click a una sucursal</p>
+  </div>
+</ng-template>
+
+
 <ng-template #editable>
-  <div *ngIf="currentSucursal.pk_SucursalID" class="edit-form">
+    <div *ngIf="currentSucursal.pk_SucursalID; else noExisteix" class="edit-form">
     <h4>Sucursal</h4>
     <form>
       <div class="form-group">
@@ -74,8 +77,11 @@
     <br>
     <strong *ngIf="name.touched || pais.touched">{{ message }}</strong>
   </div>
-  <div class = "no-existe" *ngIf="!currentSucursal.pk_SucursalID">
-    <br />
-    <h4>Aquesta sucursal no existeix.</h4>
+</ng-template>
+
+<ng-template #noExisteix>
+  <div class = "no-existeix">
+    <br/>
+    <strong>Aquesta sucursal no existeix.</strong>
   </div>
 </ng-template>

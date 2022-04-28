@@ -3,8 +3,12 @@
     margin: auto;
 }
 
-.no-existe {
+.no-existeix {
     text-align: center;
     margin: auto;
     align-items: center;
+}
+
+.fesClick {
+    text-align: center;
 }
