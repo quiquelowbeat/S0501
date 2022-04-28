@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:9000")
+// 4200 es el puerto de Angular. Le damos permiso a solicitar datos al backend.
+@CrossOrigin(origins = {"http://localhost:9000", "http://localhost:4200"})
 @RestController
 @RequestMapping("/sucursal")
 public class SucursalController {

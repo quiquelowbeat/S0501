@@ -1,1 +1,50 @@
-<p>add-sucursal works!</p>
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="nomSucursal">Nom sucursal</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nomSucursal"
+            placeholder="Introdueix nom" 
+            [(ngModel)]="sucursal.nomSucursal"
+            required="true"
+            name="nomSucursal" 
+            #name="ngModel"
+          />
+        </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger" role="alert">
+            <div *ngIf="name.errors?.['required']">
+                Es necessita un nom de sucursal.
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="paisSucursal">Pais Sucursal</label>
+          <input
+            class="form-control"
+            id="paisSucursal"
+            placeholder="Introdueix pais"
+            [(ngModel)]="sucursal.paisSucursal"
+            required="true"
+            name="paisSucursal" 
+            #pais="ngModel"
+          />
+        </div>
+        <div *ngIf="pais.invalid && (pais.dirty || pais.touched)"
+            class="alert alert-danger" role="alert">
+            <div *ngIf="name.errors?.['required']">
+                Es necessita un país.
+            </div>
+        </div>
+        <button (click)="saveSucursal()" class="btn btn-success">Afegir</button>
+        <button routerLink="/sucursal/getAll" class="btn btn-secondary">Tornar</button>
+      </div>
+      <div *ngIf="submitted">
+        <h6>Sucursal guardada correctament!</h6>
+        <button class="btn btn-success" (click)="newSucursal()">Afegir sucursal</button>
+        <button routerLink="/sucursal/getAll" class="btn btn-secondary">Tornar</button>
+      </div>
+    </div>
+  </div>

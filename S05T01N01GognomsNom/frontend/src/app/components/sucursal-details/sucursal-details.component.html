@@ -1,1 +1,81 @@
-<p>sucursal-details works!</p>
+<ng-template [ngIf]="viewMode" [ngIfElse]="editable">
+  <div *ngIf="currentSucursal.pk_SucursalID">
+    <h4>Sucursal</h4>
+    <div>
+        <label><strong>ID:</strong></label> {{ currentSucursal.pk_SucursalID }}
+      </div>
+    <div>
+      <label><strong>Nom:</strong></label> {{ currentSucursal.nomSucursal }}
+    </div>
+    <div>
+      <label><strong>País:</strong></label>
+      {{ currentSucursal.paisSucursal }}
+    </div>
+    <div>
+        <label><strong>Tipus:</strong></label>
+        {{ currentSucursal.tipusSucursal }}
+      </div>
+    <a
+      class="badge badge-warning"
+      routerLink="/sucursal/getOne/{{ currentSucursal.pk_SucursalID }}"
+    >
+      Edita
+    </a>
+  </div>
+  <div *ngIf="!currentSucursal">
+    <br />
+    <p>Fes click a una sucursal...</p>
+  </div>
+</ng-template> 
+<ng-template #editable>
+  <div *ngIf="currentSucursal.pk_SucursalID" class="edit-form">
+    <h4>Sucursal</h4>
+    <form>
+      <div class="form-group">
+        <label for="nomSucursal">Nom</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomSucursal"
+          [(ngModel)]="currentSucursal.nomSucursal"
+          name="nomSucursal"
+          #name="ngModel"
+        />
+      </div>
+      <div class="form-group">
+        <label for="paisSucursal">Pais</label>
+        <input
+          type="text"
+          class="form-control"
+          id="paisSucursal"
+          [(ngModel)]="currentSucursal.paisSucursal"
+          name="paisSucursal"
+          #pais="ngModel"
+
+        />
+      </div>
+    </form>
+    <button class="badge badge-danger mr-2" (click)="deleteSucursal()">
+      Esborra
+    </button>
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateSucursal()"
+    >
+      Actualitza
+    </button>
+    <button
+      class="badge badge-secondary"
+      routerLink="/sucursal/getAll"
+    >
+      Torna
+    </button>
+    <br>
+    <strong *ngIf="name.touched || pais.touched">{{ message }}</strong>
+  </div>
+  <div class = "no-existe" *ngIf="!currentSucursal.pk_SucursalID">
+    <br />
+    <h4>Aquesta sucursal no existeix.</h4>
+  </div>
+</ng-template>

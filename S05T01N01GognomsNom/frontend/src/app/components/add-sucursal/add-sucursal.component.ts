@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Sucursal } from '../../models/sucursal.model';
+import { SucursalService } from '../../services/sucursal.service';
 
 @Component({
   selector: 'app-add-sucursal',
@@ -7,9 +9,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddSucursalComponent implements OnInit {
 
-  constructor() { }
+  sucursal: Sucursal = {
+    nomSucursal: '',
+    paisSucursal: ''
+  };
+  submitted = false;
+  
+  constructor(private sucursalService: SucursalService) { }
 
   ngOnInit(): void {
+  }
+
+  saveSucursal(): void {
+    const data = {
+      nomSucursal: this.sucursal.nomSucursal,
+      paisSucursal: this.sucursal.paisSucursal
+    };
+    if(this.sucursal.nomSucursal != '' || this.sucursal.paisSucursal != ''){
+      this.submitted = true;
+      this.sucursalService.add(data).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      })
+    } else {
+      this.submitted = false;
+    }
+    
+  }
+
+  newSucursal(): void {
+    this.submitted = false;
+    this.sucursal = {
+      nomSucursal: '',
+      paisSucursal: ''
+    }
   }
 
 }
