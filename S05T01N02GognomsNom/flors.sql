@@ -8,7 +8,7 @@ CREATE SCHEMA IF NOT EXISTS `flors` DEFAULT CHARACTER SET utf8 ;
 USE `flors` ;
 
 
-CREATE TABLE IF NOT EXISTS `flors`.`llista_flors` (
+CREATE TABLE IF NOT EXISTS `flors`.`llistat_flors` (
   `pk_FlorID` INT(11) NOT NULL AUTO_INCREMENT,
   `nomFlor` VARCHAR(45) NOT NULL,
   `paisFlor` VARCHAR(45) NOT NULL,

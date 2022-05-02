@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
