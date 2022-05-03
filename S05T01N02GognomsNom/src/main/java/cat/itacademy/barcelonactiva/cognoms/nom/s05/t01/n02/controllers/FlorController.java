@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.controllers;
 
-import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.domain.FlorEntity;
 import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.dto.FlorDto;
 import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.services.FlorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +31,7 @@ public class FlorController {
     @PostMapping("/add")
     public ResponseEntity<FlorDto> add(@RequestBody FlorDto dto){
         try{
-            return new ResponseEntity<>(florService.toFlorDto(florService.addFlor(florService.toFlor(dto))), HttpStatus.CREATED);
+            return new ResponseEntity<>(florService.addFlor(dto), HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,10 +42,10 @@ public class FlorController {
             @ApiResponse(responseCode = "200", description = "Flor actualizada correctament"),
             @ApiResponse(responseCode = "404", description = "Flor no trobada")})
     @PutMapping("/update")
-    public ResponseEntity<HttpStatus> update(@RequestBody FlorDto dto){
-        if(florService.updateFlor(florService.toFlor(dto))){
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+    public ResponseEntity<FlorDto> update(@RequestBody FlorDto dto){
+        try{
+            return new ResponseEntity<>(florService.updateFlor(dto), HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -74,7 +73,7 @@ public class FlorController {
     @GetMapping("/getOne/{id}")
     public ResponseEntity<FlorDto> getOne(@Parameter(description = "id de la flor a cercar")@PathVariable("id") int id){
         try{
-            FlorDto dto = florService.toFlorDto(florService.getOneByID(id));
+            FlorDto dto = florService.getOneByID(id);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -89,10 +88,7 @@ public class FlorController {
             @ApiResponse(responseCode = "204", description = "Llista de flors buida")})
     @GetMapping("/getAll")
     public ResponseEntity<List<FlorDto>> getAll(){
-        List<FlorDto> listDto = new ArrayList<>();
-        for(FlorEntity flor : florService.getAllFlors()){
-            listDto.add(florService.toFlorDto(flor));
-        }
+        List<FlorDto> listDto = new ArrayList<>(florService.getAllFlors());
         if(listDto.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {

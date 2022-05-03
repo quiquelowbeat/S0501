@@ -7,8 +7,8 @@ import java.util.List;
 public interface FlorRestClient {
     List<FlorDto> getAllFlowers();
     FlorDto getFlorById(int id);
-    void addFlor(FlorDto florDto);
-    void updateFlor(FlorDto florDto);
+    FlorDto addFlor(FlorDto florDto);
+    FlorDto updateFlor(FlorDto florDto);
     void deleteFlorById(int id);
 
 }

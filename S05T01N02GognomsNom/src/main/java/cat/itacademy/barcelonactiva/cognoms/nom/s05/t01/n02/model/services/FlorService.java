@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface FlorService {
 
-    FlorEntity addFlor(FlorEntity flor);
-    boolean updateFlor(FlorEntity flor);
+    FlorDto addFlor(FlorDto dto);
+    FlorDto updateFlor(FlorDto dto);
     void deleteFlorByID(int id);
-    FlorEntity getOneByID(int id);
-    List<FlorEntity> getAllFlors();
+    FlorDto getOneByID(int id);
+    List<FlorDto> getAllFlors();
     FlorEntity toFlor(FlorDto dto);
     FlorDto toFlorDto(FlorEntity flor);
 

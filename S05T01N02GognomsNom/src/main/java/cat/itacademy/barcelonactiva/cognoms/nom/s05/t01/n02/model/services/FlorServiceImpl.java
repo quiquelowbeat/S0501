@@ -6,6 +6,7 @@ import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.repository.Flo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,21 +17,20 @@ public class FlorServiceImpl implements FlorService{
     private FlorRepository repo;
 
     @Override
-    public FlorEntity addFlor(FlorEntity flor) {
-        return repo.save(flor);
+    public FlorDto addFlor(FlorDto dto) {
+        return toFlorDto(repo.save(toFlor(dto)));
     }
 
     @Override
-    public boolean updateFlor(FlorEntity flor) {
-        Optional<FlorEntity> optionalFlor = repo.findById(flor.getPk_FlorID());
-        FlorEntity florUpdated;
+    public FlorDto updateFlor(FlorDto dto) {
+        Optional<FlorEntity> optionalFlor = repo.findById(dto.getPk_FlorID());
+        FlorEntity florUpdated = null;
         if(optionalFlor.isPresent()){
             florUpdated = optionalFlor.get();
-            florUpdated.setNomFlor(flor.getNomFlor());
-            florUpdated.setPaisFlor(flor.getPaisFlor());
-            repo.save(florUpdated);
+            florUpdated.setNomFlor(dto.getNomFlor());
+            florUpdated.setPaisFlor(dto.getPaisFlor());
         }
-        return optionalFlor.isPresent();
+        return toFlorDto(repo.save(florUpdated));
     }
 
     @Override
@@ -39,18 +39,22 @@ public class FlorServiceImpl implements FlorService{
     }
 
     @Override
-    public FlorEntity getOneByID(int id) {
+    public FlorDto getOneByID(int id) {
         Optional<FlorEntity> optionalFlor = repo.findById(id);
         FlorEntity flor = null;
         if(optionalFlor.isPresent()){
             flor = optionalFlor.get();
         }
-        return flor;
+        return toFlorDto(flor);
     }
 
     @Override
-    public List<FlorEntity> getAllFlors() {
-        return repo.findAll();
+    public List<FlorDto> getAllFlors() {
+        List<FlorDto> listDto = new ArrayList<>();
+        for(FlorEntity flor : repo.findAll()){
+            listDto.add(toFlorDto(flor));
+        }
+        return listDto;
     }
 
     @Override

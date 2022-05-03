@@ -8,8 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,13 +25,8 @@ public class FlorRestController {
             @ApiResponse(responseCode = "201", description = "Flor afegida correctament"),
             @ApiResponse(responseCode = "500", description = "Error al afegir nova flor")})
     @PostMapping("/clientFlorsAdd")
-    public ResponseEntity<HttpStatus> add(@RequestBody FlorDto dto){
-        try{
-            florRestClientImpl.addFlor(dto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public FlorDto add(@RequestBody FlorDto dto){
+        return florRestClientImpl.addFlor(dto);
     }
 
     @Operation(summary = "Actualizar la informació d'una flor")
@@ -41,9 +34,8 @@ public class FlorRestController {
             @ApiResponse(responseCode = "200", description = "Flor actualizada correctament"),
             @ApiResponse(responseCode = "404", description = "Flor no trobada")})
     @PutMapping("/clientFlorsUpdate")
-    public ResponseEntity<HttpStatus> update(@RequestBody FlorDto dto){
-        florRestClientImpl.updateFlor(dto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public FlorDto update(@RequestBody FlorDto dto){
+        return florRestClientImpl.updateFlor(dto);
     }
 
     @Operation(summary = "Esborrar flor per identificador (id)")
@@ -51,13 +43,8 @@ public class FlorRestController {
             @ApiResponse(responseCode = "204", description = "Flor esborrada correctament"),
             @ApiResponse(responseCode = "404", description = "Flor no trobada")})
     @DeleteMapping("/clientFlorsDelete/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id){
-        try{
-            florRestClientImpl.deleteFlorById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public void delete(@PathVariable("id") int id){
+        florRestClientImpl.deleteFlorById(id);
     }
 
     @Operation(summary = "Retornar tot el catàleg de flors")
@@ -67,12 +54,8 @@ public class FlorRestController {
                             schema = @Schema(implementation = List.class))}),
             @ApiResponse(responseCode = "204", description = "Llista de flors buida")})
     @GetMapping("/clientFlorsAll")
-    public ResponseEntity<List<FlorDto>> getAll(){
-        if(florRestClientImpl.getAllFlowers().isEmpty()){
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(florRestClientImpl.getAllFlowers(), HttpStatus.OK);
-        }
+    public List<FlorDto> getAll(){
+        return florRestClientImpl.getAllFlowers();
     }
 
     @Operation(summary = "Cercar flor per identificaor (id)")
@@ -82,12 +65,7 @@ public class FlorRestController {
                             schema = @Schema(implementation = FlorDto.class))}),
             @ApiResponse(responseCode = "204", description = "Flor no trobada")})
     @GetMapping("clientFlorsGetOne/{id}")
-    public ResponseEntity<FlorDto> getOne(@PathVariable("id") int id){
-        FlorDto dto = florRestClientImpl.getFlorById(id);
-        if(dto != null) {
-            return new ResponseEntity<>(dto, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+    public FlorDto getOne(@PathVariable("id") int id){
+        return florRestClientImpl.getFlorById(id);
     }
 }

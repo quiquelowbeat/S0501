@@ -34,22 +34,22 @@ public class FlorRestClientImpl implements FlorRestClient{
                 .block();
     }
 
-    public void addFlor(FlorDto florDto){
-        webClient.post()
+    public FlorDto addFlor(FlorDto florDto){
+        return webClient.post()
                 .uri("/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(florDto)
+                .bodyValue(FlorDto.dtoReadyToAdd(florDto))
                 .retrieve()
                 .bodyToMono(FlorDto.class)
                 .block();
 
     }
 
-    public void updateFlor(FlorDto florDto){
-        webClient.put()
+    public FlorDto updateFlor(FlorDto florDto){
+        return webClient.put()
                 .uri("/update")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(florDto)
+                .bodyValue(FlorDto.dtoReadyToUpdate(florDto))
                 .retrieve()
                 .bodyToMono(FlorDto.class)
                 .block();
