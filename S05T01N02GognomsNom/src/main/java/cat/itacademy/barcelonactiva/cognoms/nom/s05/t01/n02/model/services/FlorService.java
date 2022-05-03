@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FlorService {
 
-    void addFlor(FlorEntity flor);
+    FlorEntity addFlor(FlorEntity flor);
     boolean updateFlor(FlorEntity flor);
     void deleteFlorByID(int id);
     FlorEntity getOneByID(int id);

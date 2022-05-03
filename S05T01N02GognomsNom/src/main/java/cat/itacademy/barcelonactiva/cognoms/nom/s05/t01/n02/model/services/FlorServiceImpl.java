@@ -16,14 +16,14 @@ public class FlorServiceImpl implements FlorService{
     private FlorRepository repo;
 
     @Override
-    public void addFlor(FlorEntity flor) {
-        repo.save(flor);
+    public FlorEntity addFlor(FlorEntity flor) {
+        return repo.save(flor);
     }
 
     @Override
     public boolean updateFlor(FlorEntity flor) {
         Optional<FlorEntity> optionalFlor = repo.findById(flor.getPk_FlorID());
-        FlorEntity florUpdated = null;
+        FlorEntity florUpdated;
         if(optionalFlor.isPresent()){
             florUpdated = optionalFlor.get();
             florUpdated.setNomFlor(flor.getNomFlor());

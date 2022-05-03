@@ -1,9 +1,6 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.domain;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @ToString
 @Table(name = "llistat_flors")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class FlorEntity {
 
     @Id
@@ -19,5 +18,6 @@ public class FlorEntity {
     private int pk_FlorID;
     private String nomFlor;
     private String paisFlor;
+
 
 }

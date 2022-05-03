@@ -12,7 +12,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components())
-                .info(new Info().title("API de gestió de catàleg de flors").description(
+                .info(new Info().title("API de gestió de catàleg de flors").version("1.0").description(
                         "Exemple de servei Spring Boot RESTful utilitzant springdoc-openapi i OpenAPI 3."));
     }
 }
