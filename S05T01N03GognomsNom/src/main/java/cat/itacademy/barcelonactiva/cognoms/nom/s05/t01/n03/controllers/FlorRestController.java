@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class FlorRestController {
             @ApiResponse(responseCode = "201", description = "Flor afegida correctament"),
             @ApiResponse(responseCode = "500", description = "Error al afegir nova flor")})
     @PostMapping("/clientFlorsAdd")
-    public FlorDto add(@RequestBody FlorDto dto){
+    public Mono<ResponseEntity<FlorDto>> add(@RequestBody FlorDto dto){
         return florRestClientImpl.addFlor(dto);
     }
 
@@ -34,7 +36,7 @@ public class FlorRestController {
             @ApiResponse(responseCode = "200", description = "Flor actualizada correctament"),
             @ApiResponse(responseCode = "404", description = "Flor no trobada")})
     @PutMapping("/clientFlorsUpdate")
-    public FlorDto update(@RequestBody FlorDto dto){
+    public Mono<ResponseEntity<FlorDto>> update(@RequestBody FlorDto dto){
         return florRestClientImpl.updateFlor(dto);
     }
 
@@ -43,8 +45,8 @@ public class FlorRestController {
             @ApiResponse(responseCode = "204", description = "Flor esborrada correctament"),
             @ApiResponse(responseCode = "404", description = "Flor no trobada")})
     @DeleteMapping("/clientFlorsDelete/{id}")
-    public void delete(@PathVariable("id") int id){
-        florRestClientImpl.deleteFlorById(id);
+    public Mono<ResponseEntity<FlorDto>> delete(@PathVariable("id") int id){
+        return florRestClientImpl.deleteFlorById(id);
     }
 
     @Operation(summary = "Retornar tot el catàleg de flors")
@@ -54,7 +56,7 @@ public class FlorRestController {
                             schema = @Schema(implementation = List.class))}),
             @ApiResponse(responseCode = "204", description = "Llista de flors buida")})
     @GetMapping("/clientFlorsAll")
-    public List<FlorDto> getAll(){
+    public Mono<ResponseEntity<List<FlorDto>>> getAll(){
         return florRestClientImpl.getAllFlowers();
     }
 
@@ -65,7 +67,7 @@ public class FlorRestController {
                             schema = @Schema(implementation = FlorDto.class))}),
             @ApiResponse(responseCode = "204", description = "Flor no trobada")})
     @GetMapping("clientFlorsGetOne/{id}")
-    public FlorDto getOne(@PathVariable("id") int id){
+    public Mono<ResponseEntity<FlorDto>> getOne(@PathVariable("id") int id){
         return florRestClientImpl.getFlorById(id);
     }
 }

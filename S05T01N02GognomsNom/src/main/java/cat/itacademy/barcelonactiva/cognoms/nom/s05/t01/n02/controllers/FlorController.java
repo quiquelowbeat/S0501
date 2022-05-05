@@ -24,6 +24,7 @@ public class FlorController {
     @Autowired
     private FlorService florService;
 
+    // Documentación para Swagger
     @Operation(summary = "Afegir una nova flor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Flor afegida correctament"),
@@ -73,8 +74,7 @@ public class FlorController {
     @GetMapping("/getOne/{id}")
     public ResponseEntity<FlorDto> getOne(@Parameter(description = "id de la flor a cercar")@PathVariable("id") int id){
         try{
-            FlorDto dto = florService.getOneByID(id);
-            return new ResponseEntity<>(dto, HttpStatus.OK);
+            return new ResponseEntity<>(florService.getOneByID(id), HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }

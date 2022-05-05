@@ -25,17 +25,23 @@ public class FlorDto implements Serializable {
     @Schema(description = "Flor de la UE o de fora.")
     private String tipusFlor;
 
+    // Método para asignar el tipos de pais de la flor
     public void setTipusFlor(String paisFlor){
         boolean exist = false;
         int i = 0;
         int loopLength = paisosUE.size();
-        while(!exist && i < loopLength){
-            if(paisFlor.equalsIgnoreCase(paisosUE.get(i))){
-                exist = true;
+        if(paisFlor != null){
+            while(!exist && i < loopLength){
+                if(paisFlor.equalsIgnoreCase(paisosUE.get(i))){
+                    exist = true;
+                }
+                i++;
             }
-            i++;
+            this.tipusFlor = (exist) ? "UE" : "Fora UE";
+        } else {
+            this.tipusFlor = "Pais desconegut";
         }
-        this.tipusFlor = (exist) ? "UE" : "Fora UE";
+
     }
 
 }

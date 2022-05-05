@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.controllers;
 
-import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.domain.Sucursal;
 import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.dto.SucursalDTO;
 import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.services.SucursalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +19,22 @@ public class SucursalController {
     @Autowired
     private SucursalServiceImpl sucursalService;
 
+    // En esta parte de la app organizamos las llamadas a la API.
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> add(@RequestBody SucursalDTO dto){
+    public ResponseEntity<SucursalDTO> add(@RequestBody SucursalDTO dto){
         try{
-            sucursalService.addSucursal(sucursalService.toSucursal(dto));
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            // El método sucursalService.addSucursal(dto) además de hacer pasar el DTO al service, devuelve el objeto guardado.
+            return new ResponseEntity<>(sucursalService.addSucursal(dto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/update")
-    public ResponseEntity<HttpStatus> update(@RequestBody SucursalDTO dto){
-        if(sucursalService.updateSucursal(sucursalService.toSucursal(dto))){
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+    public ResponseEntity<SucursalDTO> update(@RequestBody SucursalDTO dto){
+       try{
+            return new ResponseEntity<>(sucursalService.updateSucursal(dto), HttpStatus.OK);
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -52,8 +52,7 @@ public class SucursalController {
     @GetMapping("/getOne/{id}")
     public ResponseEntity<SucursalDTO> getOne(@PathVariable("id") int id){
         try{
-            SucursalDTO dto = sucursalService.toSucursalDto(sucursalService.getSucursalById(id));
-            return new ResponseEntity<>(dto, HttpStatus.OK);
+            return new ResponseEntity<>(sucursalService.getSucursalById(id), HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
@@ -61,10 +60,7 @@ public class SucursalController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<SucursalDTO>> getAll(){
-        List<SucursalDTO> listDto = new ArrayList<>();
-        for(Sucursal sucursal : sucursalService.getAllSucursal()){
-            listDto.add(sucursalService.toSucursalDto(sucursal));
-        }
+        List<SucursalDTO> listDto = new ArrayList<>(sucursalService.getAllSucursal());
         if(listDto.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {

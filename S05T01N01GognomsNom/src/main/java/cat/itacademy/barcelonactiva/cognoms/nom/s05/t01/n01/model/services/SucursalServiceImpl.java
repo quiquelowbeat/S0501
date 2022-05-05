@@ -6,6 +6,7 @@ import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.repository.Suc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,22 +16,25 @@ public class SucursalServiceImpl implements SucursalService{
     @Autowired
     private SucursalRepository sucursalRepository;
 
+    // Usamos SucursalDTO como objeto de transmisión entrada y salida en los métodos. La comunicación con la database la hacemos con
+    // la entidad Sucursal.
     @Override
-    public void addSucursal(Sucursal sucursal) {
-        sucursalRepository.save(sucursal);
+    public SucursalDTO addSucursal(SucursalDTO dto) {
+        Sucursal sucursal = toSucursal(dto);
+        return toSucursalDto(sucursalRepository.save(sucursal));
     }
 
     @Override
-    public boolean updateSucursal(Sucursal sucursal) {
-        Optional<Sucursal> sucursalOptional = sucursalRepository.findById(sucursal.getPk_SucursalID());
+    public SucursalDTO updateSucursal(SucursalDTO dto) {
+        // Usamos el objeto contenedor Optional para guardar el objeto que buscamos en la DB.
+        Optional<Sucursal> sucursalOptional = sucursalRepository.findById(dto.getPk_SucursalID());
         Sucursal sucursalUpdated = null;
         if(sucursalOptional.isPresent()){
-            sucursalUpdated = sucursalOptional.get();
-            sucursalUpdated.setNomSucursal(sucursal.getNomSucursal());
-            sucursalUpdated.setPaisSucursal(sucursal.getPaisSucursal());
-            sucursalRepository.save(sucursalUpdated);
+            sucursalUpdated = sucursalOptional.get(); // Nos devuelve el objeto que buscamos y usamos el DTO para actualizar los datos.
+            sucursalUpdated.setNomSucursal(dto.getNomSucursal());
+            sucursalUpdated.setPaisSucursal(dto.getPaisSucursal());
         }
-        return sucursalOptional.isPresent();
+        return toSucursalDto(sucursalRepository.save(sucursalUpdated));
     }
 
     @Override
@@ -39,21 +43,25 @@ public class SucursalServiceImpl implements SucursalService{
     }
 
     @Override
-    public Sucursal getSucursalById(int id) {
+    public SucursalDTO getSucursalById(int id) {
         Optional<Sucursal> sucursalOptional = sucursalRepository.findById(id);
         Sucursal sucursal = null;
         if(sucursalOptional.isPresent()){
             sucursal = sucursalOptional.get();
         }
-        return sucursal;
+        return toSucursalDto(sucursal);
     }
 
     @Override
-    public List<Sucursal> getAllSucursal() {
-        return sucursalRepository.findAll();
+    public List<SucursalDTO> getAllSucursal() {
+        List<SucursalDTO> listDto = new ArrayList<>();
+        for(Sucursal sucursal : sucursalRepository.findAll()){
+            listDto.add(toSucursalDto(sucursal));
+        }
+        return listDto;
     }
 
-    @Override
+    // Método para transformar Dto a Entity
     public Sucursal toSucursal(SucursalDTO dto) {
         Sucursal sucursal = new Sucursal();
         sucursal.setPk_SucursalID(dto.getPk_SucursalID());
@@ -62,7 +70,7 @@ public class SucursalServiceImpl implements SucursalService{
         return sucursal;
     }
 
-    @Override
+    // Método para transformar Entity a Dto
     public SucursalDTO toSucursalDto(Sucursal sucursal) {
         SucursalDTO dto = new SucursalDTO();
         dto.setPk_SucursalID(sucursal.getPk_SucursalID());

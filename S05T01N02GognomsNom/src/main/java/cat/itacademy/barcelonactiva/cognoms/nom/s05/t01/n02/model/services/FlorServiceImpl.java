@@ -18,7 +18,8 @@ public class FlorServiceImpl implements FlorService{
 
     @Override
     public FlorDto addFlor(FlorDto dto) {
-        return toFlorDto(repo.save(toFlor(dto)));
+        FlorEntity flor = toFlor(dto);
+        return toFlorDto(repo.save(flor));
     }
 
     @Override
@@ -56,18 +57,16 @@ public class FlorServiceImpl implements FlorService{
         }
         return listDto;
     }
-
-    @Override
-    public FlorEntity toFlor(FlorDto dto) {
+    // Método para transformar Dto a Entity
+    private FlorEntity toFlor(FlorDto dto) {
         FlorEntity flor = new FlorEntity();
         flor.setPk_FlorID(dto.getPk_FlorID());
         flor.setNomFlor(dto.getNomFlor());
         flor.setPaisFlor(dto.getPaisFlor());
         return flor;
     }
-
-    @Override
-    public FlorDto toFlorDto(FlorEntity flor) {
+    // Método para transformar Entity a Dto
+    private FlorDto toFlorDto(FlorEntity flor) {
         FlorDto florDto = new FlorDto();
         florDto.setPk_FlorID(flor.getPk_FlorID());
         florDto.setNomFlor(flor.getNomFlor());

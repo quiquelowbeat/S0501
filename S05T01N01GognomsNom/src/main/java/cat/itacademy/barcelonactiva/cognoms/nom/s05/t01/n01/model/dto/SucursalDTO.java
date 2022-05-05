@@ -22,12 +22,16 @@ public class SucursalDTO implements Serializable {
         boolean exist = false;
         int i = 0;
         int loopLength = paisosUE.size();
-        while(!exist && i < loopLength){
-            if(paisosUE.get(i).equalsIgnoreCase(paisSucursal)){
-                exist = true;
+        if(paisSucursal != null){
+            while(!exist && i < loopLength){
+                if(paisSucursal.equalsIgnoreCase(paisosUE.get(i))){
+                    exist = true;
+                }
+                i++;
             }
-            i++;
+            this.tipusSucursal = (exist) ? "UE" : "Fora UE";
+        } else {
+            this.tipusSucursal = "Pais desconegut";
         }
-        this.tipusSucursal = (exist) ? "UE" : "Fora UE";
     }
 }

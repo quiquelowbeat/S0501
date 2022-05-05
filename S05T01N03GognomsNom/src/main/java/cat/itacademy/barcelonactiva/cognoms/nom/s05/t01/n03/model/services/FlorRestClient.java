@@ -1,14 +1,17 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n03.model.services;
 
 import cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n03.dto.FlorDto;
+import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 public interface FlorRestClient {
-    List<FlorDto> getAllFlowers();
-    FlorDto getFlorById(int id);
-    FlorDto addFlor(FlorDto florDto);
-    FlorDto updateFlor(FlorDto florDto);
-    void deleteFlorById(int id);
-
+    // Los métodos nos van a devolver un objeto provider de tipo Mono con las ResponseEntities correspondientes de la otra API.
+    Mono<ResponseEntity<List<FlorDto>>> getAllFlowers();
+    Mono<ResponseEntity<FlorDto>> getFlorById(int id);
+    Mono<ResponseEntity<FlorDto>> addFlor(FlorDto florDto);
+    Mono<ResponseEntity<FlorDto>> updateFlor(FlorDto florDto);
+    Mono<ResponseEntity<FlorDto>> deleteFlorById(int id);
 }

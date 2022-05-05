@@ -9,8 +9,6 @@ import javax.persistence.*;
 @ToString
 @Table(name = "llistat_flors")
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class FlorEntity {
 
     @Id
@@ -18,6 +16,5 @@ public class FlorEntity {
     private int pk_FlorID;
     private String nomFlor;
     private String paisFlor;
-
 
 }
