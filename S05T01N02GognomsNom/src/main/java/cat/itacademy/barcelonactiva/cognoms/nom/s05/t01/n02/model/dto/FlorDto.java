@@ -8,8 +8,6 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
-import static cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n02.model.dto.PaisosUE.paisosUE;
-
 @Getter
 @Setter
 @ToString
@@ -27,21 +25,6 @@ public class FlorDto implements Serializable {
 
     // Método para asignar el tipos de pais de la flor
     public void setTipusFlor(String paisFlor){
-        boolean exist = false;
-        int i = 0;
-        int loopLength = paisosUE.size();
-        if(paisFlor != null){
-            while(!exist && i < loopLength){
-                if(paisFlor.equalsIgnoreCase(paisosUE.get(i))){
-                    exist = true;
-                }
-                i++;
-            }
-            this.tipusFlor = (exist) ? "UE" : "Fora UE";
-        } else {
-            this.tipusFlor = "Pais desconegut";
-        }
-
+        this.tipusFlor = PaisosUE.setPaisFlor(paisFlor);
     }
-
 }

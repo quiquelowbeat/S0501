@@ -10,4 +10,23 @@ public class PaisosUE {
             "Finlandia", "Francia", "Grecia", "Hungría", "Irlanda", "Italia", "Letonia", "Lituania", "Luxemburgo",
             "Malta", "Países Bajos", "Polonia", "Portugal", "Rumanía", "Suecia");
 
+    public static String setPaisFlor(String paisFlor){
+        String paisSucursalFinal = "";
+        boolean exist = false;
+        int i = 0;
+        int loopLength = paisosUE.size();
+        if(paisFlor != null){
+            while(!exist && i < loopLength){
+                if(paisFlor.equalsIgnoreCase(paisosUE.get(i))){
+                    exist = true;
+                }
+                i++;
+            }
+            paisSucursalFinal = (exist) ? "UE" : "Fora UE";
+        } else {
+            paisSucursalFinal = "Pais desconegut";
+        }
+        return paisSucursalFinal;
+    }
+
 }
