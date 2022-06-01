@@ -14,6 +14,8 @@
   <li>Uso de diferentes bases de datos e implementaciones con JPA (Java Persistence API).</li>
   <li>Gestión de persistencia en los proyectos.</li>
   <li>Diseño de API Rest siguiendo buenas prácticas para su uso en la industria del software.</li>
+  <li>Uso de WebClient para comunicar diferentes APIs entre sí.</li>
+   <li>Uso de Swagger para documentar APIs.</li>
 </ol>
 
 ## Nivel 1: Gestor de sucursales.
