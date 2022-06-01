@@ -35,9 +35,9 @@
 ✲ Database: MySQL. <br />
 ✲ Patrón MVC <br />
 
-## Nivel 3: Gestor de catálogo de flores.
+## Nivel 3: Creación de una API conectada al proyecto anterior.
 
-### API Rest conectada a otra API REST
+### API Rest conectada a otra API REST mediante WebClient
 
 ✲ Gestor de dependencias: Maven. <br />
 ✲ WebClient. <br />
