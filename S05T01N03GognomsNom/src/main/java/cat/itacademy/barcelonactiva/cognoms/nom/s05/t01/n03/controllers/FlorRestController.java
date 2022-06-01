@@ -22,6 +22,7 @@ public class FlorRestController {
     @Autowired
     private FlorRestClientImpl florRestClientImpl;
 
+    // Anotaciones para la documentación en Swagger (@Operation / @ApiResponses)
     @Operation(summary = "Afegir una nova flor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Flor afegida correctament"),

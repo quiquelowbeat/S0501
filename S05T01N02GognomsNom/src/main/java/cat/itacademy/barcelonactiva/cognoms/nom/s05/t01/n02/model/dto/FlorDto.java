@@ -14,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class FlorDto implements Serializable {
 
+    // @Schema - descripción de cada atributo para Swagger.
     @Schema(description = "Identificador de la flor.")
     private int pk_FlorID;
     @Schema(description = "Nom de la flor.")

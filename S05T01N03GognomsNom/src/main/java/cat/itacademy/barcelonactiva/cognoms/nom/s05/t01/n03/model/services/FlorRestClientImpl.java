@@ -37,8 +37,8 @@ public class FlorRestClientImpl implements FlorRestClient{
     public Mono<ResponseEntity<FlorDto>> addFlor(FlorDto florDto){
         return webClient.post()
                 .uri("/add")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(FlorDto.dtoReadyToAdd(florDto))
+                .contentType(MediaType.APPLICATION_JSON) // Le indicamos que el contenido es Json
+                .bodyValue(FlorDto.dtoReadyToAdd(florDto)) // Le pasamos el Body del DTO
                 .retrieve()
                 .toEntity(FlorDto.class)
                 .onErrorResume(WebClientResponseException.class, // Si hay error 4xx o 5xx, la respuesta es un WebclientResponseException.
