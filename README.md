@@ -3,14 +3,16 @@
 ## En este sprint profundizamos en Spring Boot. 
 
 
-<summary>Objetivos clave:</summary>
+<summary>¿Qué he aprendido en este sprint?</summary>
+<br />
 <ol>
-  <li>Aprender a manejar Spring Framework en profundidad.</li>
+  <li>Manejar Spring Framework en profundidad.</li>
   <li>Saber configurar correctamente los proyectos.</li>
   <li>Conocer y poner en práctica los patrones de diseño y estructura de capas que utiliza el framework.</li>
-  <li>Crear un frontend para Web App.</li>
+  <li>Crear un frontend para Web App con Angular 13.</li>
+  <li>Uso de TypeScript en Angular.</li>
   <li>Uso de diferentes bases de datos e implementaciones con JPA (Java Persistence API).</li>
-  <li>Gestión de persistencia en los proyectos</li>
+  <li>Gestión de persistencia en los proyectos.</li>
   <li>Diseño de API Rest siguiendo buenas prácticas para su uso en la industria del software.</li>
 </ol>
 
@@ -37,6 +39,7 @@
 
 ✲ Gestor de dependencias: Maven. <br />
 ✲ WebClient. <br />
+✲ Documentación con Swagger. <br />
 ✲ Patrón MVC <br />
 
 
